@@ -29,27 +29,27 @@ The system consists of several FastAPI microservices (Agents) coordinated by an 
 ```mermaid
 flowchart TD
     subgraph "Layer 1: User Interface"
-        UI["Streamlit UI<br>(Streamlit)"]:::frontend
+        UI["Streamlit UI (Streamlit)"]:::frontend
     end
 
     subgraph "Layer 2: Orchestration"
-        ORC["Orchestrator<br>(FastAPI + spaCy)"]:::orchestrator
+        ORC["Orchestrator (FastAPI + spaCy)"]:::orchestrator
     end
 
     subgraph "Layer 3: Domain Agents"
-        API["API Agent<br>(FastAPI + yfinance)"]:::agent
-        SCR["Scraping Agent<br>(FastAPI + sec-edgar-downloader)"]:::agent
-        RET["Retriever Agent<br>(FastAPI + FAISS & SentenceTransformers)"]:::agent
-        ANA["Analysis Agent<br>(FastAPI + financial calculations)"]:::agent
-        LANG["Language Agent<br>(FastAPI + LangChain & Groq SDK)"]:::agent
-        VOICE["Voice Agent<br>(FastAPI + Groq Whisper STT)"]:::agent
+        API["API Agent (FastAPI + yfinance)"]:::agent
+        SCR["Scraping Agent (FastAPI + sec-edgar-downloader)"]:::agent
+        RET["Retriever Agent (FastAPI + FAISS & SentenceTransformers)"]:::agent
+        ANA["Analysis Agent (FastAPI + financial calculations)"]:::agent
+        LANG["Language Agent (FastAPI + LangChain & Groq SDK)"]:::agent
+        VOICE["Voice Agent (FastAPI + Groq Whisper STT)"]:::agent
     end
 
     subgraph "Layer 4: Data Stores & External Services"
         FAISS["FAISS Vector Store"]:::datastore
         YFINANCE["yfinance API"]:::external
         EDGAR["SEC EDGAR"]:::external
-        GROQ["Groq Cloud<br>(LLM & STT)"]:::external
+        GROQ["Groq Cloud (LLM & STT)"]:::external
     end
 
     subgraph "Project Configuration"
@@ -87,11 +87,11 @@ flowchart TD
     click DOC "https://github.com/flameingmoy/agentic_finance_assistant/blob/master/README.md"
     click GIT "https://github.com/flameingmoy/agentic_finance_assistant/blob/master/.gitignore"
 
-    classDef frontend fill:#add8e6,stroke:#333,shape:rect
-    classDef orchestrator fill:#90ee90,stroke:#333,shape:roundrect
-    classDef agent fill:#ffa500,stroke:#333,shape:ellipse
-    classDef datastore fill:#ffff99,stroke:#333,shape:cylinder
-    classDef external fill:#d3d3d3,stroke:#333,shape:rect
+    classDef frontend fill:#add8e6,stroke:#333
+    classDef orchestrator fill:#90ee90,stroke:#333
+    classDef agent fill:#ffa500,stroke:#333
+    classDef datastore fill:#ffff99,stroke:#333
+    classDef external fill:#d3d3d3,stroke:#333
 ```
 
 ## Setup and Usage
