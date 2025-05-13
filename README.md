@@ -30,7 +30,7 @@ The system consists of several FastAPI microservices (Agents) coordinated by an 
 
 1.  **Clone the repository:**
     ```bash
-    git clone [<repository-url>](https://github.com/Flameingmoy/Agentic_Finance_Assistant)
+    git clone https://github.com/Flameingmoy/Agentic_Finance_Assistant
     cd finance-assistant
     ```
 
