@@ -58,7 +58,7 @@ flowchart TD
         GIT[".gitignore"]:::external
     end
 
-    UI -->|HTTP POST (JSON/audio)| ORC
+    UI -->|HTTP POST (JSON&#47;audio)| ORC
     UI -->|audio stream| VOICE
     ORC -->|REST JSON| API
     ORC -->|REST JSON| SCR
@@ -72,8 +72,9 @@ flowchart TD
     API -->|market data| YFINANCE
     SCR -->|filings| EDGAR
     RET -->|vector query| FAISS
-    LANG -->|LLM & STT| GROQ
+    LANG -->|LLM &#47; STT| GROQ
     VOICE -->|STT| GROQ
+
 
     click UI "https://github.com/flameingmoy/agentic_finance_assistant/blob/master/streamlit_app/app.py"
     click ORC "https://github.com/flameingmoy/agentic_finance_assistant/blob/master/orchestrator/main.py"
