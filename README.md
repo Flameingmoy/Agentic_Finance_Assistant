@@ -72,7 +72,7 @@ flowchart TD
     API -->|market data| YFINANCE
     SCR -->|filings| EDGAR
     RET -->|vector query| FAISS
-    LANG -->|LLM &#47; STT| GROQ
+    LANG -->|LLM| GROQ
     VOICE -->|STT| GROQ
 
 
