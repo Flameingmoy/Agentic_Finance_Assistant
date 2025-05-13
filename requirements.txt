@@ -1,0 +1,50 @@
+# Core Frameworks
+fastapi
+uvicorn[standard]
+streamlit
+langchain
+langgraph
+crewai # Included as an option, primary focus likely LangGraph
+
+# Data Handling & ML
+pandas
+numpy
+scikit-learn
+# faiss-cpu # Use faiss-gpu if you have a compatible GPU and CUDA installed
+# faiss-gpu # Requires NVIDIA GPU and CUDA Toolkit (e.g., CUDA 12.x)
+faiss-gpu-cu12 # Specific FAISS build for CUDA 12.x
+sentence-transformers
+
+# APIs & Scraping
+requests
+beautifulsoup4
+yfinance
+alpha_vantage
+sec-edgar-downloader
+
+# NLU
+spacy # Requires model download: python -m spacy download en_core_web_sm
+
+# Voice / Audio Handling
+# Note: ffmpeg OS dependency might still be needed for audio format conversion
+# openai-whisper # Replaced by Groq API
+# pyttsx3 # Removed, using text-only output for now
+groq # For Groq API access (LLM, STT)
+python-multipart # For FastAPI file uploads
+soundfile # For handling audio files
+audio-recorder-streamlit  # For Streamlit voice input
+
+# LLM Providers & Environment
+# langchain-openai # Replaced by Groq
+# langchain-anthropic
+# langchain-google-genai
+langchain-community # For other LLM integrations/tools
+python-dotenv
+langchain
+langchain-groq # If using Groq LLMs, might be needed by other agents that share this venv
+
+# Utils
+pydantic
+
+# Specify versions if needed, e.g.:
+# fastapi==0.110.0 
