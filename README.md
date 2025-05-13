@@ -26,6 +26,74 @@ The system consists of several FastAPI microservices (Agents) coordinated by an 
 7.  **Language Agent (`agents/language_agent/`):** Uses a LangChain chain with Groq Cloud (e.g., `llama-3.3-70b-versatile` model) to synthesize natural language narratives based on the original query and data provided by the Orchestrator.
 8.  **Voice Agent (`agents/voice_agent/`):** Handles STT using Groq Cloud's `whisper-large-v3` API. (TTS functionality removed for now).
 
+```mermaid
+flowchart TD
+    subgraph "Layer 1: User Interface"
+        UI["Streamlit UI<br>(Streamlit)"]:::frontend
+    end
+
+    subgraph "Layer 2: Orchestration"
+        ORC["Orchestrator<br>(FastAPI + spaCy)"]:::orchestrator
+    end
+
+    subgraph "Layer 3: Domain Agents"
+        API["API Agent<br>(FastAPI + yfinance)"]:::agent
+        SCR["Scraping Agent<br>(FastAPI + sec-edgar-downloader)"]:::agent
+        RET["Retriever Agent<br>(FastAPI + FAISS & SentenceTransformers)"]:::agent
+        ANA["Analysis Agent<br>(FastAPI + financial calculations)"]:::agent
+        LANG["Language Agent<br>(FastAPI + LangChain & Groq SDK)"]:::agent
+        VOICE["Voice Agent<br>(FastAPI + Groq Whisper STT)"]:::agent
+    end
+
+    subgraph "Layer 4: Data Stores & External Services"
+        FAISS["FAISS Vector Store"]:::datastore
+        YFINANCE["yfinance API"]:::external
+        EDGAR["SEC EDGAR"]:::external
+        GROQ["Groq Cloud<br>(LLM & STT)"]:::external
+    end
+
+    subgraph "Project Configuration"
+        REQ["requirements.txt"]:::external
+        DOC["README.md"]:::external
+        GIT[".gitignore"]:::external
+    end
+
+    UI -->|HTTP POST (JSON/audio)| ORC
+    UI -->|audio stream| VOICE
+    ORC -->|REST JSON| API
+    ORC -->|REST JSON| SCR
+    SCR -->|indexes docs| RET
+    ORC -->|REST JSON| RET
+    ORC -->|REST JSON| ANA
+    ORC -->|REST JSON| LANG
+    LANG -->|JSON response| ORC
+    VOICE -->|transcript| ORC
+
+    API -->|market data| YFINANCE
+    SCR -->|filings| EDGAR
+    RET -->|vector query| FAISS
+    LANG -->|LLM & STT| GROQ
+    VOICE -->|STT| GROQ
+
+    click UI "https://github.com/flameingmoy/agentic_finance_assistant/blob/master/streamlit_app/app.py"
+    click ORC "https://github.com/flameingmoy/agentic_finance_assistant/blob/master/orchestrator/main.py"
+    click API "https://github.com/flameingmoy/agentic_finance_assistant/blob/master/agents/api_agent/main.py"
+    click SCR "https://github.com/flameingmoy/agentic_finance_assistant/blob/master/agents/scraping_agent/main.py"
+    click RET "https://github.com/flameingmoy/agentic_finance_assistant/blob/master/agents/retriever_agent/main.py"
+    click ANA "https://github.com/flameingmoy/agentic_finance_assistant/blob/master/agents/analysis_agent/main.py"
+    click LANG "https://github.com/flameingmoy/agentic_finance_assistant/blob/master/agents/language_agent/main.py"
+    click VOICE "https://github.com/flameingmoy/agentic_finance_assistant/blob/master/agents/voice_agent/main.py"
+    click REQ "https://github.com/flameingmoy/agentic_finance_assistant/blob/master/requirements.txt"
+    click DOC "https://github.com/flameingmoy/agentic_finance_assistant/blob/master/README.md"
+    click GIT "https://github.com/flameingmoy/agentic_finance_assistant/blob/master/.gitignore"
+
+    classDef frontend fill:#add8e6,stroke:#333,shape:rect
+    classDef orchestrator fill:#90ee90,stroke:#333,shape:roundrect
+    classDef agent fill:#ffa500,stroke:#333,shape:ellipse
+    classDef datastore fill:#ffff99,stroke:#333,shape:cylinder
+    classDef external fill:#d3d3d3,stroke:#333,shape:rect
+```
+
 ## Setup and Usage
 
 1.  **Clone the repository:**
