@@ -33,23 +33,23 @@ flowchart TD
     end
 
     subgraph "Layer 2: Orchestration"
-        ORC["Orchestrator (FastAPI + spaCy)"]:::orchestrator
+        ORC["Orchestrator (FastAPI and spaCy)"]:::orchestrator
     end
 
     subgraph "Layer 3: Domain Agents"
-        API["API Agent (FastAPI + yfinance)"]:::agent
-        SCR["Scraping Agent (FastAPI + sec-edgar-downloader)"]:::agent
-        RET["Retriever Agent (FastAPI + FAISS & SentenceTransformers)"]:::agent
-        ANA["Analysis Agent (FastAPI + financial calculations)"]:::agent
-        LANG["Language Agent (FastAPI + LangChain & Groq SDK)"]:::agent
-        VOICE["Voice Agent (FastAPI + Groq Whisper STT)"]:::agent
+        API["API Agent (FastAPI and yfinance)"]:::agent
+        SCR["Scraping Agent (FastAPI and sec-edgar-downloader)"]:::agent
+        RET["Retriever Agent (FastAPI and FAISS and SentenceTransformers)"]:::agent
+        ANA["Analysis Agent (FastAPI and financial calculations)"]:::agent
+        LANG["Language Agent (FastAPI and LangChain and Groq SDK)"]:::agent
+        VOICE["Voice Agent (FastAPI and Groq Whisper STT)"]:::agent
     end
 
-    subgraph "Layer 4: Data Stores & External Services"
+    subgraph "Layer 4: Data Stores and External Services"
         FAISS["FAISS Vector Store"]:::datastore
         YFINANCE["yfinance API"]:::external
         EDGAR["SEC EDGAR"]:::external
-        GROQ["Groq Cloud (LLM & STT)"]:::external
+        GROQ["Groq Cloud (LLM and STT)"]:::external
     end
 
     subgraph "Project Configuration"
@@ -58,23 +58,22 @@ flowchart TD
         GIT[".gitignore"]:::external
     end
 
-    UI -->|HTTP POST (JSON&#47;audio)| ORC
-    UI -->|audio stream| VOICE
+    UI -->|HTTP POST JSON or audio| ORC
+    UI -->|Audio stream| VOICE
     ORC -->|REST JSON| API
     ORC -->|REST JSON| SCR
-    SCR -->|indexes docs| RET
+    SCR -->|Indexes docs| RET
     ORC -->|REST JSON| RET
     ORC -->|REST JSON| ANA
     ORC -->|REST JSON| LANG
     LANG -->|JSON response| ORC
-    VOICE -->|transcript| ORC
+    VOICE -->|Transcript| ORC
 
-    API -->|market data| YFINANCE
-    SCR -->|filings| EDGAR
-    RET -->|vector query| FAISS
-    LANG -->|LLM| GROQ
+    API -->|Market data| YFINANCE
+    SCR -->|Filings| EDGAR
+    RET -->|Vector query| FAISS
+    LANG -->|LLM STT| GROQ
     VOICE -->|STT| GROQ
-
 
     click UI "https://github.com/flameingmoy/agentic_finance_assistant/blob/master/streamlit_app/app.py"
     click ORC "https://github.com/flameingmoy/agentic_finance_assistant/blob/master/orchestrator/main.py"
